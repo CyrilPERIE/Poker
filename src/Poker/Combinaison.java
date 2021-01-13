@@ -1,9 +1,5 @@
 package Poker;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-
 public class Combinaison {
 	
 	/**
@@ -12,11 +8,16 @@ public class Combinaison {
 	 *
 	 */
 	enum CombinaisonPossible{
-		Paire,DoublePaire,Brelan,Suite,Couleur,Full,Carre,Quite,QuinteFlush
+		Paire(1),DoublePaire(1*14),Brelan(2*14),Suite(3*14),Couleur(4*14),Full(5*14),Carre(6*14),Quite(7*14),QuinteFlush(8*14);
+		
+		final int valeur;
+		
+		CombinaisonPossible(int v){
+			this.valeur = v;
+		}
 	}
 	
 	public Combinaison() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -26,7 +27,7 @@ public class Combinaison {
 	 * @param jeu la liste de Carte du Joueur j
 	 * 
 	 */
-	public void joueurA(Flop flop,Joueur j,List<Carte> jeu) {
+	public void joueurA(Flop f,Joueur j) {
 		/*
 		Les combinaisaisons possibles sont les suivantes
 		
@@ -59,101 +60,42 @@ public class Combinaison {
 		
 		Si on détecte qu'il est possible que le joueur possede les combinaisons suivantes, on regarde les valeur et familles
 		 Quinte, Quinte Flush
+		 
+		 Au final on retire les cartes qui combinées font le plus de point. 
+		 Pour celle(s) qui reste(nt) on garde la plus grand en cas d'égalité
 		
 		*/
+
 		
-		HashMap<Famille,Integer> famille = new HashMap<Famille, Integer>();
-		HashMap<Valeur,Integer> valeurs = new HashMap<Valeur, Integer>();
+		Carte cp1 = j.cartes.get(0);
+		Carte cp2 = j.cartes.get(1);
+		Carte cf1 = f.cartes.get(0);
+		Carte cf2 = f.cartes.get(1);
+		Carte cf3 = f.cartes.get(2);
 		
-		famille = compterFamille(jeu,flop.cartes);
-		valeurs = compterValeurs(jeu,flop.cartes);
+		int v1 = memeValeur(cp1,cf1,cf2,cf3);
+		int v2 = memeValeur(cp2,cf1,cf2,cf3);
 		
-		/*
-		int valeursMaxValue = Collections.max(valeurs.values());
-		switch(valeursMaxValue) {
-		case 2:
-			
-		case 3:
-			
-		case 4:
+		if(cp1.valeur == cp2.valeur) {
+			v1 ++;
 		}
-		int familleMaxValue = Collections.max(famille.values());
-		*/
-		
-		j.addFamille(famille);
-		j.addValeur(valeurs);
-		
-	}
-
-
-	/**
-	 * 
-	 * @param jeu Une liste de Carte 
-	 * @param flop Un objet de type Flop
-	 * @return une Hashmap contenant les valeurs présentes dans le jeu et le flop (clé) et leur nombre (valeur)
-	 */
-	private HashMap<Valeur, Integer> compterValeurs(List<Carte> jeu, List<Carte> flop) {
-		Valeur valeurVu;
-		int occurence;
-		HashMap<Valeur, Integer> valeurs = new HashMap<Valeur, Integer>();
-		for(int v = 0; v<Valeur.values().length;v++) {
-			occurence = 0;
-			valeurVu = Valeur.values()[v];
-			for(int v2 = 0; v2<jeu.size();v2++) {
-				Carte carte = jeu.get(v2);
-				if(carte.getValeur() == valeurVu) {
-					occurence++;
-				}
-			}
-			
-			for(int v2 = 0; v2<flop.size();v2++) {
-				Carte carte = flop.get(v2);
-				if(carte.getValeur() == valeurVu) {
-					occurence++;
-				}
-			}
-			
-			if(occurence >=1) {
-				valeurs.put(valeurVu, occurence);
-			}
+		else {
 			
 		}
-		return valeurs;
 	}
 	
-	/**
-	 * 
-	 * @param jeu Une liste de Carte 
-	 * @param flop Un objet de type Flop
-	 * @return une Hashmap contenant les familles présentes dans le jeu et le flop (clé) et leur nombre (valeur)
-	 */
-	private HashMap<Famille, Integer> compterFamille(List<Carte> jeu, List<Carte> flop) {
-		Famille familleVu;
-		int occurence;
-		HashMap<Famille, Integer> familles = new HashMap<Famille, Integer>();
-		for(int f = 0; f<Famille.values().length;f++) {
-			occurence = 0;
-			familleVu = Famille.values()[f];
-			for(int f2 = 0; f2<jeu.size();f2++) {
-				Carte carte = jeu.get(f2);
-				if(carte.getFamille() == familleVu) {
-					occurence++;
-				}
-			}
-			
-			for(int f2 = 0; f2<flop.size();f2++) {
-				Carte carte = flop.get(f2);
-				if(carte.getFamille() == familleVu) {
-					occurence++;
-				}
-			}
-			
-			if(occurence >=1) {
-				familles.put(familleVu, occurence);
-			}
-			
+	public int memeValeur(Carte c1, Carte c2, Carte c3, Carte c4) {
+		int result = 0;
+		if(c1.valeur == c2.valeur) {
+			result++;
 		}
-		return familles;
+		if(c1.valeur == c3.valeur) {
+			result++;
+		}
+		if(c1.valeur == c4.valeur) {
+			result++;
+		}
+		return result;
 	}
 }
 

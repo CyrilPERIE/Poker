@@ -40,7 +40,7 @@ public class Main {
 		
 		//On remplit le flop
 		Flop flop = new Flop();
-		nombreCarte = 5;
+		nombreCarte = 3;
 		for(int tourDistrib = 0; tourDistrib<nombreCarte; tourDistrib++) {
 			flop.distribuer(jdc);
 			
@@ -49,11 +49,9 @@ public class Main {
 		Joueur test = jeu.joueurs.get(0);
 		Combinaison combinaison = new Combinaison();
 
-		combinaison.joueurA(flop,test,test.cartes);
+		combinaison.joueurA(flop,test);
 		System.out.println("carte du flop "+flop.cartes);
 		System.out.println("carte de " + test.name + " " + jeu.joueurs.get(0).cartes);
-		System.out.println("familles " + test.familles);
-		System.out.println("valeurs " + test.valeurs);
 		
 		/* Boucle de jeu à mettre en place quand on s'intéressera aux mises
 		do {
