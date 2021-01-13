@@ -63,7 +63,11 @@ public class Main {
 		
 	}
 	
-	
+	/**
+	 * Créer les objets Joueur associés à l'objet Jeu
+	 * @param jeu Un objet de type Jeu
+	 * @param n Le nombre de joueur(s)
+	 */
 	public static void creationDesJoueurs(Jeu jeu, int n) {
 		Scanner names = new Scanner(System.in);
 		String name;

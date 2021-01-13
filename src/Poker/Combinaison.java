@@ -6,6 +6,11 @@ import java.util.List;
 
 public class Combinaison {
 	
+	/**
+	 * 
+	 * Enumère toutes les combinaisons possibles au poker
+	 *
+	 */
 	enum CombinaisonPossible{
 		Paire,DoublePaire,Brelan,Suite,Couleur,Full,Carre,Quite,QuinteFlush
 	}
@@ -14,6 +19,13 @@ public class Combinaison {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Détermine les combinaisons possédées par le Joueur j
+	 * @param flop Un objet de type Flop
+	 * @param j Un object de type Joueur
+	 * @param jeu la liste de Carte du Joueur j
+	 * 
+	 */
 	public void joueurA(Flop flop,Joueur j,List<Carte> jeu) {
 		/*
 		Les combinaisaisons possibles sont les suivantes
@@ -53,8 +65,8 @@ public class Combinaison {
 		HashMap<Famille,Integer> famille = new HashMap<Famille, Integer>();
 		HashMap<Valeur,Integer> valeurs = new HashMap<Valeur, Integer>();
 		
-		famille = compterFamille(jeu,flop.cartes,famille);
-		valeurs = compterValeurs(jeu,flop.cartes,valeurs);
+		famille = compterFamille(jeu,flop.cartes);
+		valeurs = compterValeurs(jeu,flop.cartes);
 		
 		/*
 		int valeursMaxValue = Collections.max(valeurs.values());
@@ -74,10 +86,16 @@ public class Combinaison {
 	}
 
 
-
-	private HashMap<Valeur, Integer> compterValeurs(List<Carte> jeu, List<Carte> flop, HashMap<Valeur, Integer> valeurs) {
+	/**
+	 * 
+	 * @param jeu Une liste de Carte 
+	 * @param flop Un objet de type Flop
+	 * @return une Hashmap contenant les valeurs présentes dans le jeu et le flop (clé) et leur nombre (valeur)
+	 */
+	private HashMap<Valeur, Integer> compterValeurs(List<Carte> jeu, List<Carte> flop) {
 		Valeur valeurVu;
 		int occurence;
+		HashMap<Valeur, Integer> valeurs = new HashMap<Valeur, Integer>();
 		for(int v = 0; v<Valeur.values().length;v++) {
 			occurence = 0;
 			valeurVu = Valeur.values()[v];
@@ -102,10 +120,17 @@ public class Combinaison {
 		}
 		return valeurs;
 	}
-
-	private HashMap<Famille, Integer> compterFamille(List<Carte> jeu, List<Carte> flop, HashMap<Famille, Integer> familles) {
+	
+	/**
+	 * 
+	 * @param jeu Une liste de Carte 
+	 * @param flop Un objet de type Flop
+	 * @return une Hashmap contenant les familles présentes dans le jeu et le flop (clé) et leur nombre (valeur)
+	 */
+	private HashMap<Famille, Integer> compterFamille(List<Carte> jeu, List<Carte> flop) {
 		Famille familleVu;
 		int occurence;
+		HashMap<Famille, Integer> familles = new HashMap<Famille, Integer>();
 		for(int f = 0; f<Famille.values().length;f++) {
 			occurence = 0;
 			familleVu = Famille.values()[f];

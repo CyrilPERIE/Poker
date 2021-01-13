@@ -8,6 +8,10 @@ public class JeuDeCarte {
 	
 	public List<Carte> jeu = new ArrayList<Carte>();
 	
+	/**
+	 * Constructeur du jeu de carte
+	 * Crée toutes les cartes à partie des énumérations de familles et valeurs
+	 */
 	public JeuDeCarte() {
 		for(int v = 0; v < Valeur.values().length; v++)
 	      {
@@ -20,6 +24,9 @@ public class JeuDeCarte {
 	      }
 	}
 	
+	/**
+	 * Mélange le jeu de carte
+	 */
 	public void melanger() {
 		
 		Random r = new Random();

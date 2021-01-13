@@ -15,7 +15,11 @@ public class Joueur {
 		
 		this.name = name;
 	}
-
+	
+	/**
+	 * Permet la transaction d'un carte de jdc à this.joueur
+	 * @param jdc Un objet de type JeuDeCarte
+	 */
 	public void distribuer(JeuDeCarte jdc) {
 		cartes.add(jdc.jeu.get(0));
 		jdc.jeu.remove(0);
@@ -25,7 +29,7 @@ public class Joueur {
 	public String toString() {
 		return this.name + " a " + this.cartes;
 	}
-
+	
 	public void addFamille(HashMap<Famille, Integer> f) {
 		this.familles = f;
 		
@@ -36,6 +40,10 @@ public class Joueur {
 		
 	}
 	
+	/**
+	 * Ajoute les points associés à la combinaison possédée par le joueur
+	 * @param c
+	 */
 	public void addCombinaison(int c) {
 		this.combinaison.add(c);
 	}
