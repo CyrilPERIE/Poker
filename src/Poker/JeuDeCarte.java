@@ -13,15 +13,7 @@ public class JeuDeCarte {
 	 * Crée toutes les cartes à partie des énumérations de familles et valeurs
 	 */
 	public JeuDeCarte() {
-		for(int v = 0; v < Valeur.values().length; v++)
-	      {
-	         for(int f = 0; f < Famille.values().length; f++)
-	         {
-	        	 jeu.add(new Carte(Valeur.values()[v],Famille.values()[f]));
-	        	 
-	         }
-	        
-	      }
+		creationDuJeu();
 	}
 	
 	/**
@@ -43,6 +35,19 @@ public class JeuDeCarte {
 		
 		this.jeu = jeuMelange;
 		
+	}
+	
+	public void creationDuJeu() {
+		
+		for(int value = 0; value < Valeur.values().length; value++)
+	      {
+	         for(int famille = 0; famille < Famille.values().length; famille++)
+	         {
+	        	 jeu.add(new Carte(Valeur.values()[value],Famille.values()[famille]));
+	        	 
+	         }
+	        
+	      }
 	}
 
 }

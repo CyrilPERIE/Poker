@@ -15,7 +15,6 @@ public class Main {
 		
 		//Creation du jeu de carte
 		JeuDeCarte jdc = new JeuDeCarte();
-		
 		//On mélange le jeu de carte
 		
 		/*

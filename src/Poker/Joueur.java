@@ -6,7 +6,7 @@ import java.util.List;
 public class Joueur {
 	String name;
 	List<Carte> cartes = new ArrayList<Carte>();
-	List<Integer> combinaison = new ArrayList<Integer>();
+	List<Integer> combinaisons = new ArrayList<Integer>();
 	
 	public Joueur(String name) {
 		
@@ -33,7 +33,7 @@ public class Joueur {
 	 * @param c
 	 */
 	public void addCombinaison(int c) {
-		this.combinaison.add(c);
+		this.combinaisons.add(c);
 	}
 
 }
