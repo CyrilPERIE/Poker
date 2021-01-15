@@ -48,6 +48,11 @@ public class Combinaison {
 		if(valeurMain.size() == 5) {
 			if(familleMain.size() == 1) {
 				//Il y a une couleur et une possible quinte/quinte flush
+				int isFlush = cp1.valeur.position + cp2.valeur.position + cf1.valeur.position + cf2.valeur.position + cf3.valeur.position;
+				//Case de la quinte flush
+				if(isFlush == 44) {
+					j.addCombinaison(CombinaisonPossible.QuinteFlush.valeur);
+				}
 			}
 			else {
 				//possibilite de suite
