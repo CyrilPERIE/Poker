@@ -1,11 +1,13 @@
 package Poker;
 
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
-		partieClassique();		
+
+		partieClassique();
 	}
 	
 	/**
@@ -66,7 +68,8 @@ public class Main {
 		}
 		
 		//On regarde qui gagne
-				
+		Joueur gagnant = jeu.quiGagne();
+		System.out.println(gagnant.name + " gagne avec " + gagnant.combinaisonstoString(combinaison));
 	}
 }
 

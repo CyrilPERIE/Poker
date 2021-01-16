@@ -39,10 +39,8 @@ public class JeuDeCarte {
 	
 	public void creationDuJeu() {
 		
-		for(int value = 0; value < Valeur.values().length; value++)
-	      {
-	         for(int famille = 0; famille < Famille.values().length; famille++)
-	         {
+		for(int value = 0; value < Valeur.values().length; value++) {
+	         for(int famille = 0; famille < Famille.values().length; famille++) {
 	        	 jeu.add(new Carte(Valeur.values()[value],Famille.values()[famille]));
 	        	 
 	         }

@@ -3,6 +3,7 @@ package Poker;
 import java.util.HashMap;
 
 public class Combinaison {
+	HashMap<Integer,String> dictionnaireDesCombinaisons = new HashMap();
 	
 	/**
 	 * 
@@ -20,8 +21,17 @@ public class Combinaison {
 	}
 	
 	public Combinaison() {
+		creationdictionnaireDesCombinaisons();
 	}
 	
+	public void creationdictionnaireDesCombinaisons() {
+		for(int combinaison = 0; combinaison<CombinaisonPossible.values().length-1; combinaison++) {
+			for(int valeur = 0; valeur<Valeur.values().length; valeur++) {
+				dictionnaireDesCombinaisons.put(CombinaisonPossible.values()[combinaison].valeur+Valeur.values()[valeur].position, CombinaisonPossible.values()[combinaison] + " de " + Valeur.values()[valeur] );
+			}
+		}
+		dictionnaireDesCombinaisons.put(CombinaisonPossible.QuinteFlushRoyale.valeur, CombinaisonPossible.QuinteFlushRoyale + "");
+	}
 	/**
 	 * Détermine les combinaisons possédées par le Joueur j
 	 * @param flop Un objet de type Flop

@@ -48,4 +48,12 @@ public class Joueur {
 		
 	}
 
+	public String combinaisonstoString(Combinaison c) {
+		String result = "";
+		for(int i = 0; i<this.combinaisons.size(); i++) {
+			result += c.dictionnaireDesCombinaisons.get(combinaisons.get(i)) + " | ";
+		}
+		return result;
+	}
+
 }
