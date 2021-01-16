@@ -1,6 +1,7 @@
 package Poker;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Joueur {
@@ -34,6 +35,17 @@ public class Joueur {
 	 */
 	public void addCombinaison(int c) {
 		this.combinaisons.add(c);
+	}
+	
+	public void cartesSet(Carte c1, Carte c2){
+		cartes.clear();
+		cartes.add(c1);
+		cartes.add(c2);
+	}
+
+	public void sortCombinaison() {
+		Collections.sort(combinaisons,Collections.reverseOrder());
+		
 	}
 
 }

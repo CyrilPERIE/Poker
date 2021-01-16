@@ -1,10 +1,6 @@
 package Poker;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 public class Combinaison {
 	
@@ -14,7 +10,7 @@ public class Combinaison {
 	 *
 	 */
 	enum CombinaisonPossible{
-		Seule(0),Paire(14),DoublePaire(28),Brelan(42),Suite(56),Couleur(70),Full(84),Carre(98),Quite(112),QuinteFlush(126);
+		Seule(0),Paire(14),DoublePaire(28),Brelan(42),Suite(56),Couleur(70),Full(84),Carre(98),QuinteFlush(112),QuinteFlushRoyale(126);
 		
 		final int valeur;
 		
@@ -45,21 +41,66 @@ public class Combinaison {
 		
 		//Detection Couleur
 		HashMap<Famille,Integer> familleMain = memeFamille(cp1,cp2,cf1,cf2,cf3);
+		//Si 5 cartes ont des valeurs différentes
 		if(valeurMain.size() == 5) {
+			//Si les 5 cartes sont de la même famille pour quinte flush et quinte flush royale
 			if(familleMain.size() == 1) {
-				//Il y a une couleur et une possible quinte/quinte flush
+				//Il y a une couleur 
+				j.addCombinaison(CombinaisonPossible.Couleur.valeur + max(cp1,cp2,cf1,cf2,cf3));
+				//et une possible quinte flush /quinte flush royale
 				int isFlush = cp1.valeur.position + cp2.valeur.position + cf1.valeur.position + cf2.valeur.position + cf3.valeur.position;
-				//Case de la quinte flush
-				if(isFlush == 44) {
-					j.addCombinaison(CombinaisonPossible.QuinteFlush.valeur);
+				//Case de la Quinte Flush Royale
+				if(isFlush == 55) {
+					j.addCombinaison(CombinaisonPossible.QuinteFlushRoyale.valeur);
+				}
+				//Cas de la Quinte Flush
+				else if(minmaxDiff(cp1,cp2,cf1,cf2,cf3) == 4) {
+					int maxCarteValeur = max(cp1,cp2,cf1,cf2,cf3);
+					j.addCombinaison(CombinaisonPossible.QuinteFlush.valeur + maxCarteValeur);
 				}
 			}
+			//Sinon on regarde si il y a une suite
 			else {
-				//possibilite de suite
+				if(minmaxDiff(cp1,cp2,cf1,cf2,cf3) == 4) {
+					int maxCarteValeur = max(cp1,cp2,cf1,cf2,cf3);
+					j.addCombinaison(CombinaisonPossible.Suite.valeur + maxCarteValeur);
+				}
 			}
 		}
 	}
 	
+	private int max(Carte cp1, Carte cp2, Carte cf1, Carte cf2, Carte cf3) {
+		int tempMax = cp1.valeur.position;
+		int[] valeurToTest = {cp2.valeur.position,cf1.valeur.position,cf2.valeur.position,cf3.valeur.position};
+		for(int i = 0; i<valeurToTest.length;i++) {
+			int temp = valeurToTest[i];
+			if(temp>tempMax) {
+				tempMax = valeurToTest[i];
+			}
+		}
+		return tempMax;
+	}
+
+	private int minmaxDiff(Carte cp1, Carte cp2, Carte cf1, Carte cf2, Carte cf3) {
+		int tempMin = cp1.valeur.position;
+		int tempMax = cp2.valeur.position;
+		int[] valeurToTest = {cf1.valeur.position,cf2.valeur.position,cf3.valeur.position};
+		for(int i = 0; i<valeurToTest.length;i++) {
+			int temp = valeurToTest[i];
+			if(temp>tempMax) {
+				tempMax = valeurToTest[i];
+			}
+			if(temp<tempMin) {
+				tempMin = valeurToTest[i];
+			}
+		}
+		return tempMax - tempMin;
+	}
+
+	private int moyenne(Carte cp1, Carte cp2, Carte cf1, Carte cf2, Carte cf3) {
+		return (cp1.valeur.position+cp2.valeur.position+cf1.valeur.position+cf2.valeur.position+cf3.valeur.position)/5;
+	}
+
 	private int evaluator(HashMap<Valeur, Integer> hm) {
 		int result;
 		if(hm.size()>2) {
@@ -72,15 +113,13 @@ public class Combinaison {
 		for(int v : hm.values()) {
 			temp *= v;
 		}
-		System.out.println(hm);
-		System.out.println(result+temp);
 		return result+temp;
 	}
 
 	private void detectionLieeValeur(HashMap<Valeur, Integer> valeurMain,Joueur j) {
 		int evaluation = evaluator(valeurMain);
 		switch(evaluation) {
-		case 4:
+		case 6:
 		//Cas du full
 			for (HashMap.Entry<Valeur, Integer> entry : valeurMain.entrySet()) {
 				Valeur key = entry.getKey();
@@ -98,7 +137,7 @@ public class Combinaison {
 				}
 			}
 			break;
-		case 2:
+		case 4:
 		//Cas du carré
 			for (HashMap.Entry<Valeur, Integer> entry : valeurMain.entrySet()) {
 				Valeur key = entry.getKey();
@@ -123,7 +162,7 @@ public class Combinaison {
 				int value = entry.getValue();
 				switch(value) {
 				case 2:
-					j.addCombinaison(CombinaisonPossible.Paire.valeur + key.position);
+					j.addCombinaison(CombinaisonPossible.DoublePaire.valeur + key.position);
 					break;
 				case 1:
 					j.addCombinaison(CombinaisonPossible.Seule.valeur + key.position);

@@ -5,8 +5,31 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
+		partieClassique();		
+	}
+	
+	/**
+	 * Créer les objets Joueur associés à l'objet Jeu
+	 * @param jeu Un objet de type Jeu
+	 * @param n Le nombre de joueur(s)
+	 */
+	public static void creationDesJoueurs(Jeu jeu, int n) {
+
+		Scanner names = new Scanner(System.in);
+		String name;
+		for(int i = 0; i<n;i++) {
+			System.out.println("Nom du joueur " + (i+1) + ":" );
+			name = names.nextLine();
+			jeu.newJoueur(name);
+		}
+		names.close();
+		
+	}
+	
+	public static void partieClassique() {
 		//Creation du jeu
 		Jeu jeu = new Jeu();
+		
 		//Creation des differents joueurs
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Nombre de joueurs ? (2 à 5)");
@@ -16,20 +39,9 @@ public class Main {
 		//Creation du jeu de carte
 		JeuDeCarte jdc = new JeuDeCarte();
 		//On mélange le jeu de carte
-		
-		/*
-		Set carteDist = new HashSet(jdc.jeu);
-		System.out.println(carteDist.size() + " cartes distinctes" + jdc.jeu);
-		*/
 		jdc.melanger();
-		/*
-		carteDist.clear();
-		carteDist.addAll(jdc.jeu);
-		System.out.println(carteDist.size() + " cartes distinctes" + jdc.jeu);
-		*/
 		
-		//On distribue
-		
+		//On distribue les cartes aux joueurs
 		int nombreCarte = 2;
 		for(int tourDistrib = 0; tourDistrib<nombreCarte;tourDistrib++) {
 			for(int joueur = 0;joueur<jeu.joueurs.size();joueur++) {
@@ -45,37 +57,16 @@ public class Main {
 			
 		}
 		
-		Joueur test = jeu.joueurs.get(0);
+		//On détecte les combinaisons pour chaque joueur
 		Combinaison combinaison = new Combinaison();
-
-		combinaison.joueurA(flop,test);
-		System.out.println("carte du flop "+flop.cartes);
-		System.out.println("carte de " + test.name + " " + jeu.joueurs.get(0).cartes);
-		
-		/* Boucle de jeu à mettre en place quand on s'intéressera aux mises
-		do {
-			
-		}while(jeu.joueurs.size()>1);
-		 */
-		
-	}
-	
-	/**
-	 * Créer les objets Joueur associés à l'objet Jeu
-	 * @param jeu Un objet de type Jeu
-	 * @param n Le nombre de joueur(s)
-	 */
-	public static void creationDesJoueurs(Jeu jeu, int n) {
-		Scanner names = new Scanner(System.in);
-		String name;
-		for(int i = 0; i<n;i++) {
-			System.out.println("Nom du joueur " + (i+1) + ":" );
-			name = names.nextLine();
-			jeu.newJoueur(name);
+		for(Joueur joueur : jeu.joueurs) {
+			combinaison.joueurA(flop,joueur);
+			joueur.sortCombinaison();
+			System.out.println(joueur.name + " :" + joueur.combinaisons);
 		}
-		names.close();
 		
+		//On regarde qui gagne
+				
 	}
 }
 
-	

@@ -26,4 +26,11 @@ public class Flop {
 		
 	}
 	
+	public void cartesSet(Carte c1, Carte c2, Carte c3) {
+		cartes.clear();
+		cartes.add(c1);
+		cartes.add(c2);
+		cartes.add(c3);
+	}
+	
 }

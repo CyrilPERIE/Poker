@@ -5,7 +5,7 @@ package Poker;
  *
  */
 public enum Valeur {	
-	As(1),Deux(2),Trois(3),Quatre(4),Cinq(5),Six(6),Sept(7),Huit(8),Neuf(9),Dix(10),Valet(11),Dame(12),Roi(13);
+	As(13),Deux(1),Trois(2),Quatre(3),Cinq(4),Six(5),Sept(6),Huit(7),Neuf(8),Dix(9),Valet(10),Dame(11),Roi(12);
 	
 	final int position;
 	
