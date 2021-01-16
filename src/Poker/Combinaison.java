@@ -1,6 +1,10 @@
 package Poker;
 
 import java.util.HashMap;
+/**
+ * 
+ * Cette classe permet de lister les différents combinaisons possibles et de créer le dictionnaireDesCombinaisons qui sert à décrypter Joueur.combinaisons
+ */
 
 public class Combinaison {
 	HashMap<Integer,String> dictionnaireDesCombinaisons = new HashMap();
@@ -14,16 +18,24 @@ public class Combinaison {
 		Seule(0),Paire(14),DoublePaire(28),Brelan(42),Suite(56),Couleur(70),Full(84),Carre(98),QuinteFlush(112),QuinteFlushRoyale(126);
 		
 		final int valeur;
-		
+		/**
+		 * @param v le nombre de points associés à une combinaison
+		 */
 		CombinaisonPossible(int v){
 			this.valeur = v;
 		}
 	}
 	
+	/**
+	 * Constructeur, instancie dictionnaireDesCombinaisons avec l'instanciation de l'objet
+	 */
 	public Combinaison() {
 		creationdictionnaireDesCombinaisons();
 	}
 	
+	/**
+	 * Crée dictionnaireDesCombinaisons
+	 */
 	public void creationdictionnaireDesCombinaisons() {
 		for(int combinaison = 0; combinaison<CombinaisonPossible.values().length-1; combinaison++) {
 			for(int valeur = 0; valeur<Valeur.values().length; valeur++) {
@@ -32,12 +44,11 @@ public class Combinaison {
 		}
 		dictionnaireDesCombinaisons.put(CombinaisonPossible.QuinteFlushRoyale.valeur, CombinaisonPossible.QuinteFlushRoyale + "");
 	}
+	
 	/**
 	 * Détermine les combinaisons possédées par le Joueur j
-	 * @param flop Un objet de type Flop
-	 * @param j Un object de type Joueur
-	 * @param jeu la liste de Carte du Joueur j
-	 * 
+	 * @param f Un objet de type Flop
+	 * @param j Un object de type Joueur 
 	 */
 	public void joueurA(Flop f,Joueur j) {
 		Carte cp1 = j.cartes.get(0);
@@ -79,6 +90,15 @@ public class Combinaison {
 		}
 	}
 	
+	/**
+	 * Permet de récupérer la plus grande position parmis les cartes
+	 * @param cp1 Carte du joueur
+	 * @param cp2 Carte du joueur
+	 * @param cf1 Carte du flop
+	 * @param cf2 Carte du flop
+	 * @param cf3 Carte du flop
+	 * @return
+	 */
 	private int max(Carte cp1, Carte cp2, Carte cf1, Carte cf2, Carte cf3) {
 		int tempMax = cp1.valeur.position;
 		int[] valeurToTest = {cp2.valeur.position,cf1.valeur.position,cf2.valeur.position,cf3.valeur.position};
@@ -91,6 +111,15 @@ public class Combinaison {
 		return tempMax;
 	}
 
+	/**
+	 * Permet de récupérer la différence de la plus grande position et la plus petite position parmis les cartes
+	 * @param cp1 Carte du joueur
+	 * @param cp2 Carte du joueur
+	 * @param cf1 Carte du flop
+	 * @param cf2 Carte du flop
+	 * @param cf3 Carte du flop
+	 * @return
+	 */
 	private int minmaxDiff(Carte cp1, Carte cp2, Carte cf1, Carte cf2, Carte cf3) {
 		int tempMin = cp1.valeur.position;
 		int tempMax = cp2.valeur.position;
@@ -106,11 +135,25 @@ public class Combinaison {
 		}
 		return tempMax - tempMin;
 	}
-
+	
+	/**
+	 * Permet de récupérer la moyenne de position des cartes
+	 * @param cp1 Carte du joueur
+	 * @param cp2 Carte du joueur
+	 * @param cf1 Carte du flop
+	 * @param cf2 Carte du flop
+	 * @param cf3 Carte du flop
+	 * @return
+	 */
 	private int moyenne(Carte cp1, Carte cp2, Carte cf1, Carte cf2, Carte cf3) {
 		return (cp1.valeur.position+cp2.valeur.position+cf1.valeur.position+cf2.valeur.position+cf3.valeur.position)/5;
 	}
 
+	/**
+	 * Permet de rattacher la HashMap correspondant à 5 cartes (3du flop et 2 du joueur) à un des cas de main défini detectionLieeValeur(HashMap<Valeur, Integer> valeurMain,Joueur j)
+	 * @param hm HashMap<Valeur, Integer>
+	 * @return le int correspondant au cas de main
+	 */
 	private int evaluator(HashMap<Valeur, Integer> hm) {
 		int result;
 		if(hm.size()>2) {
@@ -125,7 +168,12 @@ public class Combinaison {
 		}
 		return result+temp;
 	}
-
+	
+	/**
+	 * Liste les différents cas possibles de main et ajoute au Joueur.combinaisons la valeur des combinaisons en possession par le Joueur j
+	 * @param valeurMain HashMap<Valeur, Integer>
+	 * @param j Joueur
+	 */
 	private void detectionLieeValeur(HashMap<Valeur, Integer> valeurMain,Joueur j) {
 		int evaluation = evaluator(valeurMain);
 		switch(evaluation) {
@@ -237,7 +285,16 @@ public class Combinaison {
 		}
 		
 	}
-
+	
+	/**
+	 * Crée un dictionnaire comptant les cartes par valeur présentes dans la main et la flop combinés
+	 * @param c1 Carte
+	 * @param c2 Carte
+	 * @param c3 Carte
+	 * @param c4 Carte
+	 * @param c5 Carte
+	 * @return Un dictionnaire avec en clé la Valeur et en valeur le nombre d'occurence de cette Valeur
+	 */
 	public HashMap<Valeur,Integer> memeValeur(Carte c1, Carte c2, Carte c3, Carte c4, Carte c5) {
 		Valeur[] valeur = {c1.valeur,c2.valeur,c3.valeur,c4.valeur,c5.valeur};
 		HashMap<Valeur,Integer> result =  new HashMap<Valeur,Integer>();
@@ -256,7 +313,15 @@ public class Combinaison {
 		return result;
 		
 	}
-	
+	/**
+	 * Crée un dictionnaire comptant les cartes par famille présentes dans la main et la flop combinés
+	 * @param c1 Carte
+	 * @param c2 Carte
+	 * @param c3 Carte
+	 * @param c4 Carte
+	 * @param c5 Carte
+	 * @return Un dictionnaire avec en clé la Famille et en valeur le nombre d'occurence de cette Famille
+	 */
 	public HashMap<Famille,Integer> memeFamille(Carte c1, Carte c2, Carte c3, Carte c4, Carte c5) {
 		Famille[] famille = {c1.famille,c2.famille,c3.famille,c4.famille,c5.famille};
 		HashMap<Famille,Integer> result =  new HashMap<Famille,Integer>();

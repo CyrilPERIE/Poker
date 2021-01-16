@@ -5,7 +5,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+/**
+ * 
+ * @author Cyril
+ * Permet le déroulement d'une partie de Poker Classique
+ */
 public class Jeu {
 	List<Joueur> joueurs = new ArrayList<Joueur>();
 	int[][] combinaisonsJoueurs;
@@ -18,6 +22,10 @@ public class Jeu {
 		joueurs.add(new Joueur(j));
 	}
 	
+	/**
+	 * Trouve le gagnant du pli
+	 * @return le joueur J gagnant du pli
+	 */
 	public Joueur quiGagne(){
 		creationCombinaisonsJoueurs();
 		int maxCol = maxCol();
@@ -27,6 +35,11 @@ public class Jeu {
 		
 	}
 	
+	/**
+	 * Ressors l'index (ligne) du gagnant dans la ragged array (combinaisonsJoueurs)
+	 * @param maxCol le nombre maximum de colonne dans la ragged array (combinaisonsJoueurs)
+	 * @return l'index du gagnant du pli
+	 */
 	private int indexGagnant(int maxCol) {
 		//On crée une liste avec l'index des joueurs
 		List<Integer> indexsJoueur = new ArrayList<Integer>();
@@ -58,6 +71,12 @@ public class Jeu {
 		}
 		return indexsJoueur.get(0);
 	}
+	
+	/**
+	 * Transforme une colonne en liste
+	 * @param col l'index de la colonne à transformer en ligne
+	 * @return une liste d'Integer
+	 */
 	private List<Integer> columToList(int col) {
 		List<Integer> result = new ArrayList();
 		for(int row = 0; row< this.combinaisonsJoueurs.length; row++) {
@@ -69,15 +88,10 @@ public class Jeu {
 		}
 		return result;
 	}
-
-	private int getColSize(int col) {
-		int count = 0;
-        for (int[] row : this.combinaisonsJoueurs) {
-            if (col < row.length) count++;
-        }
-        return count;
-	}
-
+	
+	/**
+	 * Trouve la valeur maximal de colonne pour une ligne dans une matrice
+	 */
 	private int maxCol() {
 		int result = 0;
 		for(int[] row : this.combinaisonsJoueurs) {
@@ -88,6 +102,10 @@ public class Jeu {
 		return result;
 	}
 
+	/**
+	 * Crée la ragged array, associe à chaque ligne les combinaisons d'un joueur
+	 */
+	
 	private void creationCombinaisonsJoueurs() {
 		this.combinaisonsJoueurs = new int[joueurs.size()][];
 		for(int row = 0; row<joueurs.size(); row++) {

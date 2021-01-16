@@ -1,10 +1,13 @@
 package Poker;
 
-import java.util.Map.Entry;
 import java.util.Scanner;
 
+/**
+ * 
+ * Mimic une partie de Poker classique, instanciant ainsi les différentes classes et appelant les différentes méthodes
+ *
+ */
 public class Main {
-
 	public static void main(String[] args) {
 
 		partieClassique();
@@ -28,6 +31,9 @@ public class Main {
 		
 	}
 	
+	/**
+	 * Lance une partie classique
+	 */
 	public static void partieClassique() {
 		//Creation du jeu
 		Jeu jeu = new Jeu();

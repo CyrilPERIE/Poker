@@ -12,7 +12,6 @@ public class Flop {
 	List<Carte> cartes = new ArrayList<Carte>();
 	
 	public Flop() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -26,6 +25,12 @@ public class Flop {
 		
 	}
 	
+	/**
+	 * Permet de paramétrer soit même le jeu de carte du flop
+	 * @param c1 Carte
+	 * @param c2 Carte
+	 * @param c3 Carte
+	 */
 	public void cartesSet(Carte c1, Carte c2, Carte c3) {
 		cartes.clear();
 		cartes.add(c1);

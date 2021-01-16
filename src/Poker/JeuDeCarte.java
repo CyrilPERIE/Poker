@@ -3,9 +3,15 @@ package Poker;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * 
+ *Cette classe permet de créer les objets de type JeuDeCarte utiles à jouer au Jeu
+ */
 public class JeuDeCarte {
 	
+	/**
+	 * La liste contenant le paquet de cartes
+	 */
 	public List<Carte> jeu = new ArrayList<Carte>();
 	
 	/**
@@ -37,6 +43,9 @@ public class JeuDeCarte {
 		
 	}
 	
+	/**
+	 * Instancie le jeu de cartes, c'est un jeu de 52 cartes avec 4 familles et des valeurs allant de 2 à l'as
+	 */
 	public void creationDuJeu() {
 		
 		for(int value = 0; value < Valeur.values().length; value++) {
