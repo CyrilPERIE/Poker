@@ -130,9 +130,8 @@ Here are the different possibilities : <br />
 ### In practice
 
 <b>That was theorical, but how to know in which case the player is ?</b><br />
-For this we will create a case for each possibility base on a calculation: the product of each occurence from wich we substract the lenght of the list of occurences if this one 
-is strictly superior to 2, that gives us these differents cases values : 
-||| 
+For this we will create a case for each possibility base on a calculation: the product of each occurence from wich we substract the lenght of the HashMap of occurences, if this one is strictly superior to 2. That gives us these differents cases values : 
+|Combo|Case| 
 | :---  | :---: |
 | No combo |-4|
 | One pair |-2|
@@ -166,7 +165,7 @@ If the 4 players are playing against each others we can have this kind of Jeu.co
 |Colinne|12|9|7|4|1|
 |Ben|15|13|7|4||
 
-It's called a jagged Array, each doesn't have the same length. <br />
+It's called a jagged Array, each row doesn't have the same length. <br />
 We just have to scan from left to right until we find the winner. If no winner is find, then it's a draw.<br />
 The first step eliminate Fred and Colinne. At this state onle Moussa and Ben can win the game. <br />
 At the second step of the scan Ben is declared the winner ! <br /><br />
